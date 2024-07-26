@@ -214,23 +214,23 @@ async function chart1() {
 
 
 async function chart2() {
-    // data
-    const data = await d3.csv("https://amche101.github.io/data/final_df.csv");
+
+    const data = await d3.csv("https://amche101.github.io/data/mask_case.csv");
 
     // setting up canvas for chart
     const margins = { top: 10, right: 10, bottom: 50, left: 100 };
     const width = 1500 - margins.left - margins.right;
     const height = 1000 - margins.top - margins.bottom;
 
-    const svg = d3.select("#chart2").append("svg")
+    const svg = d3.select("#chart1").append("svg")
         .attr("width", width + margins.left + margins.right)
         .attr("height", height + margins.top + margins.bottom)
         .append("g")
         .attr("transform", "translate("+ margins.left +", "+ margins.top +")");
     
     // Adding axes
-    const xScale = d3.scaleLinear()
-        .domain([10, 220])
+    const xScale = d3.scaleLog()
+        .domain([5000, 2500000])
         .range([0, width]);
     
     const yScale = d3.scaleLinear()
@@ -238,7 +238,7 @@ async function chart2() {
         .range([height, 0]);
 
     svg.append("g")
-        .attr("transform", "translate(0, 720)")
+        .attr("transform", "translate(0, 882)")
         .call(d3.axisBottom(xScale));
 
     svg.append("g")
@@ -252,9 +252,9 @@ async function chart2() {
     // Adding axes titles
     svg.append("text")
         .attr("x", width / 2)
-        .attr("y", height + 40)
+        .attr("y", height + 50)
         .style("text-anchor", "middle")
-        .text("Deaths Per 100k");
+        .text("Deaths");
     
 
     svg.append("text")
@@ -262,10 +262,10 @@ async function chart2() {
         .attr("y", -70)
         .attr("transform", "rotate(-90)")
         .style("text-anchor", "middle")
-        .text("Jobs Lost Per 100k Employed");
+        .text("Mask Uses in 100K");
 
     // Add invisble tooltip
-    const tooltip = d3.select("#chart2")
+    const tooltip = d3.select("#chart1")
         .append("div")
         .attr("class", "tooltip")
         .style("opacity", 0)
@@ -286,10 +286,10 @@ async function chart2() {
         .enter()
         .append("circle")
         .attr("cx", function(d) {
-            return xScale((+d.deaths / +d.Population) * 100000 );
+            return xScale(+d.deaths);
         })
         .attr("cy", function(d) {
-            return yScale((+d["Total Job Loss Index"]/ +d.total_li_workers_employed) * 100000);
+            return yScale(+d["Mask Use"]);
         })
         .attr("r", function(d) {
             return radiusScale(+d.Population);
@@ -304,9 +304,9 @@ async function chart2() {
             tooltip.transition().duration(200).style("opacity", 0.9);
             tooltip.html(
               `<p>State: ${d.state}<br>
-               <p>Deaths Per 100k: ${Math.round((+d.deaths / +d.Population) * 100000)}<br>
-               <p>Jobs Lost Per 100k Employed: ${Math.round((+d["Total Job Loss Index"]/ +d.total_li_workers_employed) * 100000)}<br>
-               <p>Total Job Losses: ${d["Total Job Loss Index"]}<br>
+               <p>Cases: ${d.cases}<br>
+               <p>Deaths: ${Math.round(d.deaths)}<br>
+               <p>Mask Uses in 100K: ${d["Mask Use"]}<br>
                <p>Population: ${d.Population}</p>`
             )
               .style("left", (event.pageX+10) + "px")
@@ -325,10 +325,10 @@ async function chart2() {
         .attr("font-size", 10)
         .attr("fill", "white")
         .attr("x", function(d) {
-            return xScale((+d.deaths / +d.Population) * 100000);
+            return xScale(+d.deaths);
         })
         .attr("y", function(d) {
-            return yScale((+d["Total Job Loss Index"]/ +d.total_li_workers_employed) * 100000);
+            return yScale(+d["Mask Use"]);
         })
         .style("text-anchor", "middle")
         .attr("alignment-baseline", "middle")
@@ -371,50 +371,58 @@ async function chart2() {
         .style("font-size", "14px")
         .style("font-weight", "bold")
         .text("Region");
-    
-        const annotations = [{
-            x: 1140,
-            y: 210,
-            note: {
-                label: "States in the North East region had high job loss rates",
-                bgPadding: {"top":15,"left":10,"right":10,"bottom":10},
-                title: "North East",
-                orientation: "middle",
-                align: "left"
-            },
-            type: d3.annotationCalloutCircle,
-            dx: -350,
-            dy: -50,
-            subject: {
-                radius: 200,
-            }
-        },
-        {
-            x: 750,
-            y: 308,
-            note: {
-                label: "",
-                bgPadding: {"top":15,"left":10,"right":10,"bottom":10},
-                orientation: "middle",
-                align: "left"
-            },
-            type: d3.annotationCalloutCircle,
-            dx: 40,
-            dy: -148,
-            subject: {
-                radius: 20,
-            }
-        },
-        ]
-    
-        const makeAnnotations = d3.annotation()
-            .annotations(annotations);
-        
-        svg.append("g")
-            .attr("class", "annotation-group")
-            .call(makeAnnotations);
 
+    //Add annotations
+    const annotations = [{
+        x: xScale(data.find(d => d.state === "New York").deaths) - 5,
+        y: yScale(data.find(d => d.state === "New York")["Mask Use"]) + 10,
+        note: {
+            label: "New York has the most positive cases in the US but does not have the lowest nor highest mask useages",
+            bgPadding: {"top":15,"left":10,"right":10,"bottom":10},
+            title: "New York",
+            orientation: "middle",
+            align: "left"
+        },
+        type: d3.annotationCallout,
+        dx: -100,
+        dy: 50
+    },
+    {
+        x: xScale(data.find(d => d.state === "Vermont").deaths)+ 5,
+        y: yScale(data.find(d => d.state === "Vermont")["Mask Use"]),
+        note: {
+            label: "Vermont has the lowest positive cases in the US but also a significant high number of mask uses",
+            bgPadding: {"top":15,"left":10,"right":10,"bottom":10},
+            title: "Vermont",
+            orientation: "middle",
+            align: "left"
+        },
+        type: d3.annotationCallout,
+        dx: 30,
+        dy: 30
+    },
+    {
+        x: xScale(data.find(d => d.state === "California").deaths)+ 5,
+        y: yScale(data.find(d => d.state === "California")["Mask Use"]),
+        note: {
+            label: "California has the highest mask uses in the US but they are also the top 5 States for positive COVID-19 cases",
+            bgPadding: {"top":15,"left":10,"right":10,"bottom":10},
+            title: "California",
+            orientation: "middle",
+            align: "left"
+        },
+        type: d3.annotationCallout,
+        dx: 50,
+        dy: 10
+    }
+    ]
+
+    const makeAnnotations = d3.annotation()
+        .annotations(annotations);
     
+    svg.append("g")
+        .attr("class", "annotation-group")
+        .call(makeAnnotations);
 }
 
 async function chart3() {
