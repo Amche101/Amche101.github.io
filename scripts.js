@@ -211,7 +211,7 @@
 
 async function chart1() {
     // data
-    const data = await d3.csv("https://amche101.github.io/data/final_df.csv");
+    const data = await d3.csv("https://amche101.github.io/data/finals.csv");
 
     // setting up canvas for chart
     const margins = { top: 10, right: 10, bottom: 50, left: 100 };
@@ -258,7 +258,7 @@ async function chart1() {
         .attr("y", -70)
         .attr("transform", "rotate(-90)")
         .style("text-anchor", "middle")
-        .text("Total Mask Uses In 100K TEST1");
+        .text("TEST1");
 
     // Add invisble tooltip
     const tooltip = d3.select("#chart1")
@@ -285,7 +285,7 @@ async function chart1() {
             return xScale(+d.cases);
         })
         .attr("cy", function(d) {
-            return yScale(+d.Mask);
+            return yScale(+d["Mask Uses"]);
         })
         .attr("r", function(d) {
             return radiusScale(+d.Population);
@@ -302,7 +302,7 @@ async function chart1() {
               `<p>State: ${d.state}<br>
                <p>Cases: ${d.cases}<br>
                <p>Deaths: ${Math.round(d.deaths)}<br>
-               <p>Total Mask: ${d.Mask}<br>
+               <p>Total Job Losses: ${d["Mask Uses"]}<br>
                <p>Population: ${d.Population}</p>`
             )
               .style("left", (event.pageX+10) + "px")
@@ -324,7 +324,7 @@ async function chart1() {
             return xScale(+d.cases);
         })
         .attr("y", function(d) {
-            return yScale(+d.Mask);
+            return yScale(+d["Mask Uses"]);
         })
         .style("text-anchor", "middle")
         .attr("alignment-baseline", "middle")
@@ -371,7 +371,7 @@ async function chart1() {
     //Add annotations
     const annotations = [{
         x: xScale(data.find(d => d.state === "California").cases) - 5,
-        y: yScale(data.find(d => d.state === "California").Mask) + 10,
+        y: yScale(data.find(d => d.state === "California")["Mask Uses"]) + 10,
         note: {
             label: "California had the most cases at the end of 2020 as well as the most jobs lost.",
             bgPadding: {"top":15,"left":10,"right":10,"bottom":10},
@@ -384,8 +384,22 @@ async function chart1() {
         dy: 50
     },
     {
+        x: xScale(data.find(d => d.state === "Idaho").cases)+ 5,
+        y: yScale(data.find(d => d.state === "Idaho")["Mask Uses"]),
+        note: {
+            label: "Idaho had the highest job gain rate of 2.79%",
+            bgPadding: {"top":15,"left":10,"right":10,"bottom":10},
+            title: "Idaho",
+            orientation: "middle",
+            align: "left"
+        },
+        type: d3.annotationCallout,
+        dx: 30,
+        dy: 30
+    },
+    {
         x: xScale(data.find(d => d.state === "Utah").cases)+ 5,
-        y: yScale(data.find(d => d.state === "Utah").Mask),
+        y: yScale(data.find(d => d.state === "Utah")["Mask Uses"]),
         note: {
             label: "Utah gained jobs during COVID, with about 14 thousand jobs gained.",
             bgPadding: {"top":15,"left":10,"right":10,"bottom":10},
@@ -405,6 +419,8 @@ async function chart1() {
     svg.append("g")
         .attr("class", "annotation-group")
         .call(makeAnnotations);
+
+
 }
 
 
