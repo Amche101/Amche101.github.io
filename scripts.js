@@ -1,5 +1,4 @@
 async function chart1() {
-    // data
     const data = await d3.csv("https://amche101.github.io/data/final_df.csv");
 
     // setting up canvas for chart
@@ -213,7 +212,7 @@ async function chart1() {
 
 async function chart2() {
     // data
-    const data = await d3.csv("https://amche101.github.io/data/final.csv");
+    const data = await d3.csv("https://amche101.github.io/data/final_df.csv");
 
     // setting up canvas for chart
     const margins = { top: 10, right: 10, bottom: 50, left: 100 };
