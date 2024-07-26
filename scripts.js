@@ -234,7 +234,7 @@ async function chart2() {
         .range([0, width]);
     
     const yScale = d3.scaleLinear()
-        .domain([-50000, 50000])
+        .domain([0, 50000])
         .range([height, 0]);
 
     svg.append("g")
@@ -538,7 +538,7 @@ async function chart3() {
 
             tooltip.transition().duration(200).style("opacity", 0.9);
             tooltip.html(
-              `<p>Mask Preference in 250K Survery ${d}: ${Math.round(selected_state[d]*100)}</p>`
+              `<p>Mask Preference from 250K Survery ${d}: ${Math.round(selected_state[d]*100)}</p>`
             )
               .style("left", (event.pageX+10) + "px")
               .style("top", (event.pageY) + "px");
