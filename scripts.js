@@ -229,12 +229,12 @@ async function chart2() {
         .attr("transform", "translate("+ margins.left +", "+ margins.top +")");
     
     // Adding axes
-    const xScale = d3.scaleLog()
-        .domain([5000, 2500000])
+    const xScale = d3.scaleLinear()
+        .domain([10, 220])
         .range([0, width]);
     
     const yScale = d3.scaleLinear()
-        .domain([-50000, 750000])
+        .domain([-3500, 13000])
         .range([height, 0]);
 
     svg.append("g")
