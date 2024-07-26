@@ -1,6 +1,6 @@
 async function chart1() {
     // data
-    const data = await d3.csv("https://amche101.github.io/data/final.csv");
+    const data = await d3.csv("https://amche101.github.io/data/final_data.csv");
 
     // setting up canvas for chart
     const margins = { top: 10, right: 10, bottom: 50, left: 100 };
@@ -19,7 +19,7 @@ async function chart1() {
         .range([0, width]);
     
     const yScale = d3.scaleLinear()
-        .domain([0, 10000000])
+        .domain([0, 1000000])
         .range([height, 0]);
 
     svg.append("g")
