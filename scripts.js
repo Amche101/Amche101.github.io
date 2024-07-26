@@ -286,7 +286,7 @@ async function chart2() {
         .enter()
         .append("circle")
         .attr("cx", function(d) {
-            return xScale((+d.deaths / +d.Population) * 100000);
+            return xScale((+d.deaths));
         })
         .attr("cy", function(d) {
             return yScale(+d["Mask Use"]);
@@ -325,7 +325,7 @@ async function chart2() {
         .attr("font-size", 10)
         .attr("fill", "white")
         .attr("x", function(d) {
-            return xScale((+d.deaths / +d.Population) * 100000);
+            return xScale((+d.deaths));
         })
         .attr("y", function(d) {
             return yScale(+d["Mask Use"]);
@@ -373,38 +373,47 @@ async function chart2() {
         .text("Region");
     
         const annotations = [{
-            x: 1140,
-            y: 210,
+            x: xScale(data.find(d => d.state === "New York").cases) - 5,
+            y: yScale(data.find(d => d.state === "New York")["Mask Use"]) + 10,
             note: {
-                label: "States in the North East region had high job loss rates",
+                label: "New York has the most positive cases in the US but does not have the lowest nor highest mask useages",
                 bgPadding: {"top":15,"left":10,"right":10,"bottom":10},
-                title: "North East",
+                title: "New York",
                 orientation: "middle",
                 align: "left"
             },
-            type: d3.annotationCalloutCircle,
-            dx: -350,
-            dy: -50,
-            subject: {
-                radius: 200,
-            }
+            type: d3.annotationCallout,
+            dx: -100,
+            dy: 50
         },
         {
-            x: 750,
-            y: 308,
+            x: xScale(data.find(d => d.state === "Vermont").cases)+ 5,
+            y: yScale(data.find(d => d.state === "Vermont")["Mask Use"]),
             note: {
-                label: "",
+                label: "Vermont has the lowest positive cases in the US but also a significant high number of mask uses",
                 bgPadding: {"top":15,"left":10,"right":10,"bottom":10},
+                title: "Vermont",
                 orientation: "middle",
                 align: "left"
             },
-            type: d3.annotationCalloutCircle,
-            dx: 40,
-            dy: -148,
-            subject: {
-                radius: 20,
-            }
+            type: d3.annotationCallout,
+            dx: 30,
+            dy: 30
         },
+        {
+            x: xScale(data.find(d => d.state === "California").cases)+ 5,
+            y: yScale(data.find(d => d.state === "California")["Mask Use"]),
+            note: {
+                label: "California has the highest mask uses in the US but they are also the top 5 States for positive COVID-19 cases",
+                bgPadding: {"top":15,"left":10,"right":10,"bottom":10},
+                title: "California",
+                orientation: "middle",
+                align: "left"
+            },
+            type: d3.annotationCallout,
+            dx: 50,
+            dy: 10
+        }
         ]
     
         const makeAnnotations = d3.annotation()
