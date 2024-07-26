@@ -19,7 +19,7 @@ async function chart1() {
         .range([0, width]);
     
     const yScale = d3.scaleLinear()
-        .domain([-50000, 750000])
+        .domain([-0.5, 1])
         .range([height, 0]);
 
     svg.append("g")
@@ -214,8 +214,6 @@ async function chart1() {
     svg.append("g")
         .attr("class", "annotation-group")
         .call(makeAnnotations);
-
-
 }
 
 
