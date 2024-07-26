@@ -1,0 +1,98 @@
+html, body, div, span,
+h1, h2, h3, h4, h5, h6, p,
+a, img, em, strong, b, i, u,
+ul, ol, li, form, label,
+fieldset, legend {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; 
+  height: 100vh;
+}
+
+.container {
+  width: 1500px;
+  max-width: 2000px;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #fff;
+}
+
+h1 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.box {
+  padding: 5px;
+}
+
+.next-button {
+  display: inline-block;
+  padding: 8px 20px;
+  background-color: #28a745;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.back-button {
+  display: inline-block;
+  padding: 8px 20px;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.next-button:hover {
+  background-color: #218838;
+}
+
+.back-button:hover {
+  background-color: #0056b3 ;
+}
+
+.small-font {
+  font-size: 12px;
+  color: #a0a0a0; 
+  margin-bottom: -5px;
+  margin-top: 5px;
+}
+
+.link {
+  margin-bottom: 5px;
+  font-size: 10px;
+}
+
+.link a {
+  color: #0052a9;
+}
+
+.link a:hover {
+  color: #66b0fa; 
+}
+
+.title {
+  border-bottom: 2px solid #dcdcdc; 
+  padding-bottom: 10px; 
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  font: 12px Arial, sans-serif;
+  pointer-events: none;
+}
+
+g.annotation-group text {
+  font-size: 12px;
+}

@@ -1,0 +1,40 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>CS 416 Narrative Visualization Afif Shomali</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
+  <script src="../scripts.js"></script>
+  <link rel="stylesheet" href="../styles/main.css">
+
+</head>
+<body onload="chart3()">
+  <div class="container">
+    <h1 class="title">How are Job Losses Distributed Between Industries?</h1>
+    
+    <p>
+      This page will show how job lossses distribute across different industries, this part of 
+      the slideshow is meant for you to explore the data on your own. So go ahead and try selecting 
+      your state to see how it fared in regard to job losses. Then take so time to explore other states
+      to see how they compare.
+
+      <br>
+    <p> &#8505;  Select a state from the drop down menu to see how the Job losses distrubute
+      across industries for that state. Hover over any of the Bars to see the actual number of jobs lost.<br>
+      &#8505; Remember a negative number of jobs lost means that that industry actually gained jobs.<br>
+      &#8505;Please note that the bar lengths are not always proportional to the actual number of jobs lost 
+      due to the wide range of values for the number of jobs lost, some bars may be the same length but
+      but will represent different numbers of jobs lost<br></p>
+    </p>
+
+
+    <select id="select-state"></select>
+    <p><br></p>
+
+    <div id="chart3"></div>
+    <a href="page3.html" class="back-button">Back</a>
+    <a href="page5.html" class="next-button">Next</a>
+  </div>
+
+</body>
+</html>
