@@ -19,7 +19,7 @@ async function chart1() {
         .range([0, width]);
     
     const yScale = d3.scaleLinear()
-        .domain([0, 1000000])
+        .domain([0, 10000000])
         .range([height, 0]);
 
     svg.append("g")
