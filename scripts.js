@@ -222,7 +222,7 @@ async function chart2() {
     const width = 1500 - margins.left - margins.right;
     const height = 1000 - margins.top - margins.bottom;
 
-    const svg = d3.select("#chart1").append("svg")
+    const svg = d3.select("#chart2").append("svg")
         .attr("width", width + margins.left + margins.right)
         .attr("height", height + margins.top + margins.bottom)
         .append("g")
@@ -265,7 +265,7 @@ async function chart2() {
         .text("Mask Uses in 100K");
 
     // Add invisble tooltip
-    const tooltip = d3.select("#chart1")
+    const tooltip = d3.select("#chart2")
         .append("div")
         .attr("class", "tooltip")
         .style("opacity", 0)
