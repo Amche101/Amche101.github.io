@@ -5,7 +5,7 @@ async function chart1() {
     // setting up canvas for chart
     const margins = { top: 10, right: 10, bottom: 50, left: 100 };
     const width = 1500 - margins.left - margins.right;
-    const height = 1000 - margins.top - margins.bottom;
+    const height = 0.1 - margins.top - margins.bottom;
 
     const svg = d3.select("#chart1").append("svg")
         .attr("width", width + margins.left + margins.right)
@@ -15,7 +15,7 @@ async function chart1() {
     
     // Adding axes
     const xScale = d3.scaleLog()
-        .domain([5000, 2500000])
+        .domain([5000, 4500000000])
         .range([0, width]);
     
     const yScale = d3.scaleLinear()
@@ -119,7 +119,7 @@ async function chart1() {
             return xScale(+d.cases);
         })
         .attr("y", function(d) {
-            return yScale(+d["Total Job Loss Index"]);
+            return yScale(+d.ALWAYS);
         })
         .style("text-anchor", "middle")
         .attr("alignment-baseline", "middle")
