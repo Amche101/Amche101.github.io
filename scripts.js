@@ -286,10 +286,10 @@ async function chart2() {
         .enter()
         .append("circle")
         .attr("cx", function(d) {
-            return xScale((+d.deaths / +d.Population) * 100000);
+            return xScale(+d["Mask Use"]);
         })
         .attr("cy", function(d) {
-            return yScale(+d["Mask Use"]);
+            return yScale((+d.deaths / +d.Population) * 100000);
         })
         .attr("r", function(d) {
             return radiusScale(+d.Population);
@@ -325,10 +325,10 @@ async function chart2() {
         .attr("font-size", 10)
         .attr("fill", "white")
         .attr("x", function(d) {
-            return xScale((+d.deaths / +d.Population) * 100000);
+            return xScale(+d["Mask Use"]);
         })
         .attr("y", function(d) {
-            return yScale(+d["Mask Use"]);
+            return yScale((+d.deaths / +d.Population) * 100000);
         })
         .style("text-anchor", "middle")
         .attr("alignment-baseline", "middle")
