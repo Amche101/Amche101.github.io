@@ -62,7 +62,7 @@ async function chart1() {
 
     // Add colors for regions
     const regioncolors = d3.scaleOrdinal()
-        .domain([...new Set(data.map(d => d.state))])
+        .domain([...new Set(data.map(d => d.Region))])
         .range(d3.schemeCategory10);
 
     // Add Data & tooltip functionality
@@ -80,7 +80,7 @@ async function chart1() {
             return radiusScale(+d.Population);
         })
         .attr("fill", function(d) {
-            return regioncolors(d.state)
+            return regioncolors(d.Region)
         })
         .on("mouseover", (event, d) => {
             d3.select(event.target).attr("stroke", "black")
@@ -127,9 +127,9 @@ async function chart1() {
         .attr("transform", "translate(20, 20)");
       
     
-    const state = [...new Set(data.map(d => d.state))];
+    const regions = [...new Set(data.map(d => d.Region))];
     const legendItems = legend.selectAll(".legend-item")
-        .data(state)
+        .data(regions)
         .enter()
         .append("g")
         .attr("class", "legend-item")
@@ -159,12 +159,12 @@ async function chart1() {
 
     //Add annotations
     const annotations = [{
-        x: xScale(data.find(d => d.state === "California").cases) - 5,
-        y: yScale(data.find(d => d.state === "California")["Mask Use"]) + 10,
+        x: xScale(data.find(d => d.state === "New York").cases) - 5,
+        y: yScale(data.find(d => d.state === "New York")["Mask Use"]) + 10,
         note: {
-            label: "California had the most cases at the end of 2020 as well as the most jobs lost.",
+            label: "New York has the most positive cases in the US but does not have the lowest nor highest mask useages",
             bgPadding: {"top":15,"left":10,"right":10,"bottom":10},
-            title: "California",
+            title: "New York",
             orientation: "middle",
             align: "left"
         },
@@ -277,7 +277,7 @@ async function chart2() {
 
     // Add colors for regions
     const regioncolors = d3.scaleOrdinal()
-        .domain([...new Set(data.map(d => d.state))])
+        .domain([...new Set(data.map(d => d.Region))])
         .range(d3.schemeCategory10);
 
     // Add Data & tooltip functionality
