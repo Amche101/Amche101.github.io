@@ -426,7 +426,7 @@ async function chart2() {
 
 async function chart3() {
     // data
-    const data = await d3.csv("https://amche101.github.io/data/final.csv");
+    const data = await d3.csv("https://amche101.github.io/data/mask_case.csv");
 
     // setting up canvas for chart
     const margins = { top: 10, right: 10, bottom: 50, left: 10 };
@@ -440,26 +440,11 @@ async function chart3() {
         .attr("transform", "translate("+ margins.left +", "+ margins.top +")");
 
     const cols = [
-        "Agriculture, Forestry, Fishing, and Hunting",
-        "Mining, Quarrying, and Oil and Gas Extractions",
-        "Utilities",
-        "Construction",
-        "Manufacturing",
-        "Wholesale Trade",
-        "Retail Trade",
-        "Transportation and Warehousing",
-        "Information",
-        "Finance and Insurance",
-        "Real Estate and Rental and Leasing",
-        "Professional, Scientific, and Technical Services",
-        "Management of Companies and Enterprises",
-        "Administrative and Support and Waste Management and Remediation Services",
-        "Educational Services",
-        "Health Care and Social Assistance",
-        "Arts, Entertainment, and Recreation",
-        "Accomodation and Food Services",
-        "Other Services",
-        "Public Administration"
+        "ALWAYS",
+        "FREQUENTLY",
+        "SOMETIMES",
+        "RARELY",
+        "NEVER"	
     ]
 
     //Create dropdown menu 
