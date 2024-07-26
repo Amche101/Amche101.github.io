@@ -1,4 +1,4 @@
-async function chart1() {
+async function chart2() {
     // data
     const data = await d3.csv("https://amche101.github.io/data/mask_case.csv");
 
@@ -7,7 +7,7 @@ async function chart1() {
     const width = 1500 - margins.left - margins.right;
     const height = 1000 - margins.top - margins.bottom;
 
-    const svg = d3.select("#chart1").append("svg")
+    const svg = d3.select("#chart2").append("svg")
         .attr("width", width + margins.left + margins.right)
         .attr("height", height + margins.top + margins.bottom)
         .append("g")
@@ -50,7 +50,7 @@ async function chart1() {
         .text("Mask Uses in 100K");
 
     // Add invisble tooltip
-    const tooltip = d3.select("#chart1")
+    const tooltip = d3.select("#chart2")
         .append("div")
         .attr("class", "tooltip")
         .style("opacity", 0)
@@ -213,7 +213,7 @@ async function chart1() {
 }
 
 
-async function chart2() {
+async function chart1() {
     // data
     const data = await d3.csv("https://amche101.github.io/data/mask_case.csv");
 
@@ -222,7 +222,7 @@ async function chart2() {
     const width = 1500 - margins.left - margins.right;
     const height = 1000 - margins.top - margins.bottom;
 
-    const svg = d3.select("#chart2").append("svg")
+    const svg = d3.select("#chart1").append("svg")
         .attr("width", width + margins.left + margins.right)
         .attr("height", height + margins.top + margins.bottom)
         .append("g")
@@ -265,7 +265,7 @@ async function chart2() {
         .text("Deaths");
 
     // Add invisble tooltip
-    const tooltip = d3.select("#chart2")
+    const tooltip = d3.select("#chart1")
         .append("div")
         .attr("class", "tooltip")
         .style("opacity", 0)
@@ -371,57 +371,57 @@ async function chart2() {
         .style("font-weight", "bold")
         .text("Region");
 
-    //Add annotations
-    const annotations = [{
-        x: xScale(data.find(d => d.state === "New York").cases) - 5,
-        y: yScale(data.find(d => d.state === "New York").deaths) + 10,
-        note: {
-            label: "New York has the most positive cases in the US but does not have the lowest nor highest mask useages",
-            bgPadding: {"top":15,"left":10,"right":10,"bottom":10},
-            title: "New York",
-            orientation: "middle",
-            align: "left"
-        },
-        type: d3.annotationCallout,
-        dx: -100,
-        dy: 50
-    },
-    {
-        x: xScale(data.find(d => d.state === "Vermont").cases)+ 5,
-        y: yScale(data.find(d => d.state === "Vermont").deaths),
-        note: {
-            label: "Vermont has the lowest positive cases in the US but also a significant high number of mask uses",
-            bgPadding: {"top":15,"left":10,"right":10,"bottom":10},
-            title: "Vermont",
-            orientation: "middle",
-            align: "left"
-        },
-        type: d3.annotationCallout,
-        dx: 30,
-        dy: 30
-    },
-    {
-        x: xScale(data.find(d => d.state === "California").cases)+ 5,
-        y: yScale(data.find(d => d.state === "California").deaths),
-        note: {
-            label: "California has the highest mask uses in the US but they are also the top 5 States for positive COVID-19 cases",
-            bgPadding: {"top":15,"left":10,"right":10,"bottom":10},
-            title: "California",
-            orientation: "middle",
-            align: "left"
-        },
-        type: d3.annotationCallout,
-        dx: 50,
-        dy: 10
-    }
-    ]
+    // //Add annotations
+    // const annotations = [{
+    //     x: xScale(data.find(d => d.state === "New York").cases) - 5,
+    //     y: yScale(data.find(d => d.state === "New York").deaths) + 10,
+    //     note: {
+    //         label: "New York has the most positive cases in the US but does not have the lowest nor highest mask useages",
+    //         bgPadding: {"top":15,"left":10,"right":10,"bottom":10},
+    //         title: "New York",
+    //         orientation: "middle",
+    //         align: "left"
+    //     },
+    //     type: d3.annotationCallout,
+    //     dx: -100,
+    //     dy: 50
+    // },
+    // {
+    //     x: xScale(data.find(d => d.state === "Vermont").cases)+ 5,
+    //     y: yScale(data.find(d => d.state === "Vermont").deaths),
+    //     note: {
+    //         label: "Vermont has the lowest positive cases in the US but also a significant high number of mask uses",
+    //         bgPadding: {"top":15,"left":10,"right":10,"bottom":10},
+    //         title: "Vermont",
+    //         orientation: "middle",
+    //         align: "left"
+    //     },
+    //     type: d3.annotationCallout,
+    //     dx: 30,
+    //     dy: 30
+    // },
+    // {
+    //     x: xScale(data.find(d => d.state === "California").cases)+ 5,
+    //     y: yScale(data.find(d => d.state === "California").deaths),
+    //     note: {
+    //         label: "California has the highest mask uses in the US but they are also the top 5 States for positive COVID-19 cases",
+    //         bgPadding: {"top":15,"left":10,"right":10,"bottom":10},
+    //         title: "California",
+    //         orientation: "middle",
+    //         align: "left"
+    //     },
+    //     type: d3.annotationCallout,
+    //     dx: 50,
+    //     dy: 10
+    // }
+    // ]
 
-    const makeAnnotations = d3.annotation()
-        .annotations(annotations);
+    // const makeAnnotations = d3.annotation()
+    //     .annotations(annotations);
     
-    svg.append("g")
-        .attr("class", "annotation-group")
-        .call(makeAnnotations);
+    // svg.append("g")
+    //     .attr("class", "annotation-group")
+    //     .call(makeAnnotations);
 
 
 }
