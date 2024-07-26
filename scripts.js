@@ -230,11 +230,11 @@ async function chart2() {
     
     // Adding axes
     const xScale = d3.scaleLinear()
-        .domain([10, 220])
+        .domain([0, 50000])
         .range([0, width]);
     
     const yScale = d3.scaleLinear()
-        .domain([-3500, 13000])
+        .domain([-50000, 750000])
         .range([height, 0]);
 
     svg.append("g")
@@ -246,7 +246,7 @@ async function chart2() {
 
     // Scale for radius values
     const radiusScale = d3.scaleLinear()
-        .domain(d3.extent(data, d => +d.Population)) 
+        .domain(d3.extent(data, d => +d.deaths)) 
         .range([10, 25]); 
 
     // Adding axes titles
