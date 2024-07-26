@@ -246,7 +246,7 @@ async function chart2() {
 
     // Scale for radius values
     const radiusScale = d3.scaleLinear()
-        .domain(d3.extent(data, d => +d.deaths)) 
+        .domain(d3.extent(data, d => +d.Population))
         .range([10, 25]); 
 
     // Adding axes titles
