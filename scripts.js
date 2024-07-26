@@ -538,7 +538,7 @@ async function chart3() {
 
             tooltip.transition().duration(200).style("opacity", 0.9);
             tooltip.html(
-              `<p>Mask Preference in 250K ${d}: ${selected_state[d]}</p>`
+              `<p>Mask Preference in 250K Survery ${d}: ${Math.round(selected_state[d]*100)}</p>`
             )
               .style("left", (event.pageX+10) + "px")
               .style("top", (event.pageY) + "px");
