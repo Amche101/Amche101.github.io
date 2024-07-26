@@ -234,7 +234,7 @@ async function chart1() {
         .range([0, width]);
     
     const yScale = d3.scaleLinear()
-        .domain([-2500, 50000])
+        .domain([-5000, 50000])
         .range([height, 0]);
 
     svg.append("g")
@@ -255,7 +255,6 @@ async function chart1() {
         .attr("y", height + 50)
         .style("text-anchor", "middle")
         .text("Cases");
-    
 
     svg.append("text")
         .attr("x", -height / 2)
