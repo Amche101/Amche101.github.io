@@ -1,6 +1,6 @@
 async function chart1() {
     // data
-    const data = await d3.csv("https://amche101.github.io/data/final.csv");
+    const data = await d3.csv("https://afifshomali.github.io/data/final.csv");
 
     // setting up canvas for chart
     const margins = { top: 10, right: 10, bottom: 50, left: 100 };
@@ -19,7 +19,7 @@ async function chart1() {
         .range([0, width]);
     
     const yScale = d3.scaleLinear()
-        .domain([0, 1000000])
+        .domain([-50000, 750000])
         .range([height, 0]);
 
     svg.append("g")
@@ -74,7 +74,7 @@ async function chart1() {
             return xScale(+d.cases);
         })
         .attr("cy", function(d) {
-            return yScale(+d["Mask Uses"]);
+            return yScale(+d["Mask Use"]);
         })
         .attr("r", function(d) {
             return radiusScale(+d.Population);
@@ -88,10 +88,10 @@ async function chart1() {
 
             tooltip.transition().duration(200).style("opacity", 0.9);
             tooltip.html(
-               `<p>State: ${d.state}<br>
+              `<p>State: ${d.state}<br>
                <p>Cases: ${d.cases}<br>
                <p>Deaths: ${Math.round(d.deaths)}<br>
-               <p>Mask Uses in 100k: ${d["Mask Use"]}<br>
+               <p>Mask Uses in 100K: ${d["Mask Use"]}<br>
                <p>Population: ${d.Population}</p>`
             )
               .style("left", (event.pageX+10) + "px")
