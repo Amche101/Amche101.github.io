@@ -538,11 +538,7 @@ async function chart3() {
 
             tooltip.transition().duration(200).style("opacity", 0.9);
             tooltip.html(
-              `<p>Mask Preference from 250K Survery ${d}: ${Math.round(selected_state[d]*100)}<br>
-               <p>Cases: ${d.cases}<br>
-               <p>Deaths: ${Math.round(d.deaths)}<br>
-               <p>Mask Uses in 100K: ${d["Mask Use"]}<br>
-               <p>Population: ${d.Population}</p>`
+              `<p>Mask Preference from 250K Survery ${d}: ${Math.round(selected_state[d]*100)}</p>`
             )
             
               .style("left", (event.pageX+10) + "px")
