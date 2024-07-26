@@ -462,7 +462,7 @@ async function chart3() {
         });
     //Create Scales
     const xScale = d3.scaleLinear()
-        .domain([-5000, 20000])
+        .domain([0, 1])
         .range([0, width]);
     
     const yScale = d3.scaleBand()
@@ -501,7 +501,7 @@ async function chart3() {
             .attr("width", function(d) {
                 return Math.abs(xScale(selected_state[d]) - xScale(0));
             })
-            .attr("fill", "steelblue");
+            .attr("fill", "orange");
         
         svg.append("g")
             .attr("transform", "translate(296, 0)")
