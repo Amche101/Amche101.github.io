@@ -173,12 +173,12 @@ async function chart1() {
         dy: 50
     },
     {
-        x: xScale(data.find(d => d.state === "Idaho").cases)+ 5,
-        y: yScale(data.find(d => d.state === "Idaho")["Mask Use"]),
+        x: xScale(data.find(d => d.state === "Vermont").cases)+ 5,
+        y: yScale(data.find(d => d.state === "Vermont")["Mask Use"]),
         note: {
-            label: "Idaho had the highest job gain rate of 2.79%",
+            label: "Vermont has the lowest positive cases in the US but also a significant high number of mask uses",
             bgPadding: {"top":15,"left":10,"right":10,"bottom":10},
-            title: "Idaho",
+            title: "Vermont",
             orientation: "middle",
             align: "left"
         },
@@ -187,12 +187,12 @@ async function chart1() {
         dy: 30
     },
     {
-        x: xScale(data.find(d => d.state === "Utah").cases)+ 5,
-        y: yScale(data.find(d => d.state === "Utah")["Mask Use"]),
+        x: xScale(data.find(d => d.state === "California").cases)+ 5,
+        y: yScale(data.find(d => d.state === "California")["Mask Use"]),
         note: {
-            label: "Utah gained jobs during COVID, with about 14 thousand jobs gained.",
+            label: "California has the highest mask uses in the US but they are also the top 5 States for positive COVID-19 cases",
             bgPadding: {"top":15,"left":10,"right":10,"bottom":10},
-            title: "Utah",
+            title: "California",
             orientation: "middle",
             align: "left"
         },
