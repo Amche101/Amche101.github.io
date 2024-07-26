@@ -15,11 +15,11 @@ async function chart1() {
     
     // Adding axes
     const xScale = d3.scaleLog()
-        .domain([5000, 2500000])
+        .domain([0, 2500000])
         .range([0, width]);
     
     const yScale = d3.scaleLinear()
-        .domain([0, 2500000])
+        .domain([0, 1000000])
         .range([height, 0]);
 
     svg.append("g")
@@ -47,7 +47,7 @@ async function chart1() {
         .attr("y", -70)
         .attr("transform", "rotate(-90)")
         .style("text-anchor", "middle")
-        .text("TEST1");
+        .text("Mask Uses in 100K");
 
     // Add invisble tooltip
     const tooltip = d3.select("#chart1")
@@ -89,10 +89,10 @@ async function chart1() {
             tooltip.transition().duration(200).style("opacity", 0.9);
             tooltip.html(
               `<p>State: ${d.state}<br>
+               <p>Population: ${d.Population}<br>
                <p>Cases: ${d.cases}<br>
                <p>Deaths: ${Math.round(d.deaths)}<br>
-               <p>Mask Uses in 100K: ${d["Mask Uses"]}<br>
-               <p>Population: ${d.Population}</p>`
+               <p>Mask Uses in 100K: ${d["Mask Uses"]}</p>`
             )
               .style("left", (event.pageX+10) + "px")
               .style("top", (event.pageY) + "px");
