@@ -258,7 +258,7 @@ async function chart1() {
         .attr("y", -70)
         .attr("transform", "rotate(-90)")
         .style("text-anchor", "middle")
-        .text("Total Mask Uses In 100K");
+        .text("Total Mask Uses In 100K TEST1");
 
     // Add invisble tooltip
     const tooltip = d3.select("#chart1")
@@ -285,7 +285,7 @@ async function chart1() {
             return xScale(+d.cases);
         })
         .attr("cy", function(d) {
-            return yScale(+d["Mask"]);
+            return yScale(+d.Mask);
         })
         .attr("r", function(d) {
             return radiusScale(+d.Population);
@@ -302,7 +302,7 @@ async function chart1() {
               `<p>State: ${d.state}<br>
                <p>Cases: ${d.cases}<br>
                <p>Deaths: ${Math.round(d.deaths)}<br>
-               <p>Total Mask: ${d["Mask"]}<br>
+               <p>Total Mask: ${d.Mask}<br>
                <p>Population: ${d.Population}</p>`
             )
               .style("left", (event.pageX+10) + "px")
@@ -324,7 +324,7 @@ async function chart1() {
             return xScale(+d.cases);
         })
         .attr("y", function(d) {
-            return yScale(+d["Mask"]);
+            return yScale(+d.Mask);
         })
         .style("text-anchor", "middle")
         .attr("alignment-baseline", "middle")
@@ -371,7 +371,7 @@ async function chart1() {
     //Add annotations
     const annotations = [{
         x: xScale(data.find(d => d.state === "California").cases) - 5,
-        y: yScale(data.find(d => d.state === "California")["Mask"]) + 10,
+        y: yScale(data.find(d => d.state === "California").Mask) + 10,
         note: {
             label: "California had the most cases at the end of 2020 as well as the most jobs lost.",
             bgPadding: {"top":15,"left":10,"right":10,"bottom":10},
@@ -385,7 +385,7 @@ async function chart1() {
     },
     {
         x: xScale(data.find(d => d.state === "Utah").cases)+ 5,
-        y: yScale(data.find(d => d.state === "Utah")["Mask"]),
+        y: yScale(data.find(d => d.state === "Utah").Mask),
         note: {
             label: "Utah gained jobs during COVID, with about 14 thousand jobs gained.",
             bgPadding: {"top":15,"left":10,"right":10,"bottom":10},
