@@ -229,8 +229,8 @@ async function chart2() {
         .attr("transform", "translate("+ margins.left +", "+ margins.top +")");
     
     // Adding axes
-    const xScale = d3.scaleLinear()
-        .domain([0, 50000])
+    const xScale = d3.scaleLog()
+        .domain([5000, 2500000])
         .range([0, width]);
     
     const yScale = d3.scaleLinear()
@@ -238,7 +238,7 @@ async function chart2() {
         .range([height, 0]);
 
     svg.append("g")
-        .attr("transform", "translate(0, 720)")
+        .attr("transform", "translate(0, 882)")
         .call(d3.axisBottom(xScale));
 
     svg.append("g")
@@ -246,15 +246,15 @@ async function chart2() {
 
     // Scale for radius values
     const radiusScale = d3.scaleLinear()
-        .domain(d3.extent(data, d => +d.Population))
+        .domain(d3.extent(data, d => +d.Population)) 
         .range([10, 25]); 
 
     // Adding axes titles
     svg.append("text")
         .attr("x", width / 2)
-        .attr("y", height + 40)
+        .attr("y", height + 50)
         .style("text-anchor", "middle")
-        .text("Deaths Per 100k");
+        .text("Cases");
     
 
     svg.append("text")
@@ -262,7 +262,7 @@ async function chart2() {
         .attr("y", -70)
         .attr("transform", "rotate(-90)")
         .style("text-anchor", "middle")
-        .text("Jobs Lost Per 100k Employed");
+        .text("Deaths");
 
     // Add invisble tooltip
     const tooltip = d3.select("#chart2")
@@ -286,10 +286,10 @@ async function chart2() {
         .enter()
         .append("circle")
         .attr("cx", function(d) {
-            return xScale(+d["Mask Use"]);
+            return xScale(+d.cases);
         })
         .attr("cy", function(d) {
-            return yScale((+d.deaths / +d.Population) * 100000);
+            return yScale(+d.deaths);
         })
         .attr("r", function(d) {
             return radiusScale(+d.Population);
@@ -303,12 +303,11 @@ async function chart2() {
 
             tooltip.transition().duration(200).style("opacity", 0.9);
             tooltip.html(
-                `<p>State: ${d.state}<br>
-                 <p>Cases: ${d.cases}<br>
-                 <p>Deaths: ${Math.round(d.deaths)}<br>
-                 <p>Mask Uses in 100K: ${d["Mask Use"]}<br>
-                 <p>Population: ${d.Population}</p>`
-              )
+              `<p>State: ${d.state}<br>
+               <p>Cases: ${d.cases}<br>
+               <p>Deaths: ${Math.round(d.deaths)}<br>
+               <p>Population: ${d.Population}</p>`
+            )
               .style("left", (event.pageX+10) + "px")
               .style("top", (event.pageY) + "px");
           })
@@ -325,10 +324,10 @@ async function chart2() {
         .attr("font-size", 10)
         .attr("fill", "white")
         .attr("x", function(d) {
-            return xScale(+d["Mask Use"]);
+            return xScale(+d.cases);
         })
         .attr("y", function(d) {
-            return yScale((+d.deaths / +d.Population) * 100000);
+            return yScale(+d.deaths);
         })
         .style("text-anchor", "middle")
         .attr("alignment-baseline", "middle")
@@ -371,57 +370,60 @@ async function chart2() {
         .style("font-size", "14px")
         .style("font-weight", "bold")
         .text("Region");
-    
-        const annotations = [{
-            x: xScale(data.find(d => d.state === "New York").cases) - 5,
-            y: yScale(data.find(d => d.state === "New York")["Mask Use"]) + 10,
-            note: {
-                label: "New York has the most positive cases in the US but does not have the lowest nor highest mask useages",
-                bgPadding: {"top":15,"left":10,"right":10,"bottom":10},
-                title: "New York",
-                orientation: "middle",
-                align: "left"
-            },
-            type: d3.annotationCallout,
-            dx: -100,
-            dy: 50
+
+    //Add annotations
+    const annotations = [{
+        x: xScale(data.find(d => d.state === "New York").cases) - 5,
+        y: yScale(data.find(d => d.state === "New York").deaths) + 10,
+        note: {
+            label: "New York has the most positive cases in the US but does not have the lowest nor highest mask useages",
+            bgPadding: {"top":15,"left":10,"right":10,"bottom":10},
+            title: "New York",
+            orientation: "middle",
+            align: "left"
         },
-        {
-            x: xScale(data.find(d => d.state === "Vermont").cases)+ 5,
-            y: yScale(data.find(d => d.state === "Vermont")["Mask Use"]),
-            note: {
-                label: "Vermont has the lowest positive cases in the US but also a significant high number of mask uses",
-                bgPadding: {"top":15,"left":10,"right":10,"bottom":10},
-                title: "Vermont",
-                orientation: "middle",
-                align: "left"
-            },
-            type: d3.annotationCallout,
-            dx: 30,
-            dy: 30
+        type: d3.annotationCallout,
+        dx: -100,
+        dy: 50
+    },
+    {
+        x: xScale(data.find(d => d.state === "Vermont").cases)+ 5,
+        y: yScale(data.find(d => d.state === "Vermont").deaths),
+        note: {
+            label: "Vermont has the lowest positive cases in the US but also a significant high number of mask uses",
+            bgPadding: {"top":15,"left":10,"right":10,"bottom":10},
+            title: "Vermont",
+            orientation: "middle",
+            align: "left"
         },
-        {
-            x: xScale(data.find(d => d.state === "California").cases)+ 5,
-            y: yScale(data.find(d => d.state === "California")["Mask Use"]),
-            note: {
-                label: "California has the highest mask uses in the US but they are also the top 5 States for positive COVID-19 cases",
-                bgPadding: {"top":15,"left":10,"right":10,"bottom":10},
-                title: "California",
-                orientation: "middle",
-                align: "left"
-            },
-            type: d3.annotationCallout,
-            dx: 50,
-            dy: 10
-        }
-        ]
+        type: d3.annotationCallout,
+        dx: 30,
+        dy: 30
+    },
+    {
+        x: xScale(data.find(d => d.state === "California").cases)+ 5,
+        y: yScale(data.find(d => d.state === "California").deaths),
+        note: {
+            label: "California has the highest mask uses in the US but they are also the top 5 States for positive COVID-19 cases",
+            bgPadding: {"top":15,"left":10,"right":10,"bottom":10},
+            title: "California",
+            orientation: "middle",
+            align: "left"
+        },
+        type: d3.annotationCallout,
+        dx: 50,
+        dy: 10
+    }
+    ]
+
+    const makeAnnotations = d3.annotation()
+        .annotations(annotations);
     
-        const makeAnnotations = d3.annotation()
-            .annotations(annotations);
-        
-        svg.append("g")
-            .attr("class", "annotation-group")
-            .call(makeAnnotations);
+    svg.append("g")
+        .attr("class", "annotation-group")
+        .call(makeAnnotations);
+
+
 }
 
 async function chart3() {
@@ -536,7 +538,7 @@ async function chart3() {
 
             tooltip.transition().duration(200).style("opacity", 0.9);
             tooltip.html(
-              `<p>Jobs Lost in ${d}: ${Math.round(selected_state[d])}</p>`
+              `<p>Mask Preference in 250K ${d}: ${selected_state[d]}</p>`
             )
               .style("left", (event.pageX+10) + "px")
               .style("top", (event.pageY) + "px");
