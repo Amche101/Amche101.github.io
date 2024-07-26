@@ -62,7 +62,7 @@ async function chart1() {
 
     // Add colors for regions
     const regioncolors = d3.scaleOrdinal()
-        .domain([...new Set(data.map(d => d.Region))])
+        .domain([...new Set(data.map(d => d.state))])
         .range(d3.schemeCategory10);
 
     // Add Data & tooltip functionality
@@ -80,7 +80,7 @@ async function chart1() {
             return radiusScale(+d.Population);
         })
         .attr("fill", function(d) {
-            return regioncolors(d.Region)
+            return regioncolors(d.state)
         })
         .on("mouseover", (event, d) => {
             d3.select(event.target).attr("stroke", "black")
@@ -127,9 +127,9 @@ async function chart1() {
         .attr("transform", "translate(20, 20)");
       
     
-    const regions = [...new Set(data.map(d => d.Region))];
+    const state = [...new Set(data.map(d => d.state))];
     const legendItems = legend.selectAll(".legend-item")
-        .data(regions)
+        .data(state)
         .enter()
         .append("g")
         .attr("class", "legend-item")
@@ -277,7 +277,7 @@ async function chart2() {
 
     // Add colors for regions
     const regioncolors = d3.scaleOrdinal()
-        .domain([...new Set(data.map(d => d.Region))])
+        .domain([...new Set(data.map(d => d.state))])
         .range(d3.schemeCategory10);
 
     // Add Data & tooltip functionality
