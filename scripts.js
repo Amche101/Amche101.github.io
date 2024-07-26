@@ -1,6 +1,6 @@
 async function chart1() {
     // data
-    const data = await d3.csv("https://afifshomali.github.io/data/final.csv");
+    const data = await d3.csv("https://amche101.github.io/data/final_df.csv");
 
     // setting up canvas for chart
     const margins = { top: 10, right: 10, bottom: 50, left: 100 };
@@ -74,7 +74,7 @@ async function chart1() {
             return xScale(+d.cases);
         })
         .attr("cy", function(d) {
-            return yScale(+d["Total Job Loss Index"]);
+            return yScale(+d.ALWAYS);
         })
         .attr("r", function(d) {
             return radiusScale(+d.Population);
@@ -89,10 +89,15 @@ async function chart1() {
             tooltip.transition().duration(200).style("opacity", 0.9);
             tooltip.html(
               `<p>State: ${d.state}<br>
+               <p>Population: ${d.Population}<br>
                <p>Cases: ${d.cases}<br>
                <p>Deaths: ${Math.round(d.deaths)}<br>
-               <p>Job Loss Rate: ${Math.round(d["low_income_worker_job_loss_rate"] * 100 * 100)/ 100}%<br>
-               <p>Total Job Losses: ${d["Total Job Loss Index"]}<br>
+               <p>Death/Case Ratio: ${Math.round(d['Death/Case Ratio'])}<br>
+               <p>Mask use ALWAYS: ${Math.round(d.ALWAYS)}<br>
+               <p>Mask use ALWAYS: ${Math.round(d.FREQUENTLY)}<br>
+               <p>Mask use ALWAYS: ${Math.round(d.SOMETIMES)}<br>
+               <p>Mask use ALWAYS: ${Math.round(d.RARELY)}<br>
+               <p>Mask use ALWAYS: ${Math.round(d.NEVER)}<br>
                <p>Population: ${d.Population}</p>`
             )
               .style("left", (event.pageX+10) + "px")
@@ -161,7 +166,7 @@ async function chart1() {
     //Add annotations
     const annotations = [{
         x: xScale(data.find(d => d.state === "California").cases) - 5,
-        y: yScale(data.find(d => d.state === "California")["Total Job Loss Index"]) + 10,
+        y: yScale(data.find(d => d.state === "California")["ALWAYS"]) + 10,
         note: {
             label: "California had the most cases at the end of 2020 as well as the most jobs lost.",
             bgPadding: {"top":15,"left":10,"right":10,"bottom":10},
@@ -175,7 +180,7 @@ async function chart1() {
     },
     {
         x: xScale(data.find(d => d.state === "Idaho").cases)+ 5,
-        y: yScale(data.find(d => d.state === "Idaho")["Total Job Loss Index"]),
+        y: yScale(data.find(d => d.state === "Idaho")["ALWAYS"]),
         note: {
             label: "Idaho had the highest job gain rate of 2.79%",
             bgPadding: {"top":15,"left":10,"right":10,"bottom":10},
@@ -189,7 +194,7 @@ async function chart1() {
     },
     {
         x: xScale(data.find(d => d.state === "Utah").cases)+ 5,
-        y: yScale(data.find(d => d.state === "Utah")["Total Job Loss Index"]),
+        y: yScale(data.find(d => d.state === "Utah")["ALWAYS"]),
         note: {
             label: "Utah gained jobs during COVID, with about 14 thousand jobs gained.",
             bgPadding: {"top":15,"left":10,"right":10,"bottom":10},
