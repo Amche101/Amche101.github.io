@@ -230,11 +230,11 @@ async function chart2() {
     
     // Adding axes
     const xScale = d3.scaleLinear()
-        .domain([0, 50000])
+        .domain([10, 220])
         .range([0, width]);
     
     const yScale = d3.scaleLinear()
-        .domain([-50000, 750000])
+        .domain([-3500, 13000])
         .range([height, 0]);
 
     svg.append("g")
