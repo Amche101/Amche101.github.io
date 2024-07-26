@@ -230,7 +230,7 @@ async function chart2() {
     
     // Adding axes
     const xScale = d3.scaleLog()
-        .domain([5000, 2500000])
+        .domain([0, 45000])
         .range([0, width]);
     
     const yScale = d3.scaleLinear()
