@@ -230,11 +230,11 @@ async function chart2() {
     
     // Adding axes
     const xScale = d3.scaleLinear()
-        .domain([10, 220])
+        .domain([0, 50000])
         .range([0, width]);
     
     const yScale = d3.scaleLinear()
-        .domain([-3500, 13000])
+        .domain([-50000, 750000])
         .range([height, 0]);
 
     svg.append("g")
@@ -286,7 +286,7 @@ async function chart2() {
         .enter()
         .append("circle")
         .attr("cx", function(d) {
-            return xScale((+d.deaths));
+            return xScale((+d.deaths / +d.Population) * 100000);
         })
         .attr("cy", function(d) {
             return yScale(+d["Mask Use"]);
@@ -325,7 +325,7 @@ async function chart2() {
         .attr("font-size", 10)
         .attr("fill", "white")
         .attr("x", function(d) {
-            return xScale((+d.deaths));
+            return xScale((+d.deaths / +d.Population) * 100000);
         })
         .attr("y", function(d) {
             return yScale(+d["Mask Use"]);
